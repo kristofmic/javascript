@@ -1,5 +1,10 @@
 # Procur JavaScript Style Guide
 
+###This document was compiled from a variety of sources, which may be referenced in the [Resources](#resources)
+section
+
+###All code in any code-base should look like a single person typed it, no matter how many people contributed.###
+
 ## Table of Contents
 
   1. [Types](#types)
@@ -23,6 +28,7 @@
   1. [Events](#events)
   1. [Modules](#modules)
   1. [Testing](#testing)
+  1. [Resources](#resources)
 
 ## Types
 
@@ -214,11 +220,27 @@
 
   - Function declaration:
 
-  ```javascript
-  function declaredName() {
-    return true;
-  }
-  ```
+    ```javascript
+    function declaredName() {
+      return true;
+    }
+    ```
+
+  - Do not define and pass in functions as callbacks within the argument list. Instead use a named function declaration and pass the name reference.
+
+    ```javascript
+    // bad
+    asyncCall(foo, function(err, result) {
+      // ...stuff...
+    });
+
+    // good
+    asyncCall(foo, handleResponse);
+
+    function handleResponse(err, result) {
+      // ...stuff...
+    }
+    ```
 
   - Unless an IIFE is being used to create a closure or scope, all functions should be named via
   the function declaration syntax. Anonymous functions will display as such in the error call stack,
@@ -226,7 +248,7 @@
   they can be accessed from anywhere within the lexical scope, even above their definition (see
   [Hoisting](#hoisting) for more information).
 
-  - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
+  - Never declare a function in a non-function block (if, while, etc).
   - **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
 
     ```javascript
@@ -247,7 +269,8 @@
     }
     ```
 
-  - Never name a parameter `arguments`, this will take precedence over the `arguments` object that is given to every function scope. Give paramaters meaningful names over abstract ones.
+  - Never name a parameter `arguments`, this will take precedence over the `arguments` object that is given to every function scope.
+  - Give paramaters meaningful names over abstract ones (see [Naming Conventions](#naming-conventions)).
 
     ```javascript
     // bad
@@ -314,7 +337,7 @@
     var superPower = new SuperPower();
     ```
 
-  - Use one `var` declaration for multiple variables and declare each variable on a newline.
+  - Use one `var` declaration for multiple variables within the same scope and declare each variable on a newline.
 
     ```javascript
     // bad
@@ -454,6 +477,30 @@
     }
     ```
 
+  - `const` and `let`, from ES6, should also be assigned at the top of their block scope
+
+    ```javascript
+    // bad
+    function foo() {
+      let
+        foo,
+        bar;
+      if (condition) {
+        bar = ';
+        // statements
+      }
+    }
+
+    // good
+    function foo() {
+      let foo;
+      if (condition) {
+        let bar = ';
+        // statements
+      }
+    }
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 
@@ -567,8 +614,13 @@
   - Use shortcuts.
 
     ```javascript
+    // Strings
     // bad
     if (name !== '') {
+      // ...stuff...
+    }
+
+    if (otherName === '') {
       // ...stuff...
     }
 
@@ -577,13 +629,51 @@
       // ...stuff...
     }
 
+    if (!otherName) {
+      // ...stuff...
+    }
+
+    // Booleans
+    // bad
+    if (foo === true) {
+      // ...stuff...
+    }
+
+    if (bar === false) {
+      // ...stuff...
+    }
+
+    // good
+    if (foo) {
+      // ...stuff...
+    }
+
+    if (!bar) {
+      // ...stuff...
+    }
+
+    // Array Length
     // bad
     if (collection.length > 0) {
       // ...stuff...
     }
 
+    if (otherCollection.length === 0) {
+      // ...stuff...
+    }
+
     // good
     if (collection.length) {
+      // ...stuff...
+    }
+
+    if (!otherCollection.length) {
+      // ...stuff...
+    }
+
+    // Null and Undefined
+    // When only evaluating a ref that might be null or undefined, but NOT false, "" or 0,
+    if (foo === null || foo === undefined) {
       // ...stuff...
     }
     ```
@@ -604,7 +694,7 @@
     // good
     if (test) return false;
 
-    // good
+    // best
     if (test) {
       return false;
     }
@@ -709,6 +799,8 @@
 
 ## Whitespace
 
+  - Never mix spaces and tabs
+
   - Use soft tabs set to 2 spaces
 
     ```javascript
@@ -725,6 +817,57 @@
     // good
     function() {
     ∙∙var name;
+    }
+    ```
+
+  - Remove trailing whitespace
+
+    ```javascript
+    // bad
+    var foo = 'bar';∙
+
+    // good
+    var foo = 'bar';
+    ```
+
+  - For non-function statements (e.g., if/while/for), place 1 space between the
+  statement and the leading paren
+
+    ```javascript
+    //bad
+    if(condition){
+      // ...stuff...
+    }
+
+    while(condition){
+      // ...stuff...
+    }
+
+    //good
+    if (condition) {
+      // ...stuff...
+    }
+
+    while (condition) {
+      // ...stuff...
+    }
+    ```
+
+  - Place 1 space between paramaters
+
+    ```javascript
+    // bad
+    foo(bar,baz);
+
+    for (var i=0;i<100;i++) {
+      someIterativeFn();
+    }
+
+    // good
+    foo(bar, baz);
+
+    for (var i = 0; i < 100; i++) {
+      // ...stuff...
     }
     ```
 
@@ -915,6 +1058,39 @@
 **[⬆ back to top](#table-of-contents)**
 
 ## Type Casting & Coercion
+
+  - Common types of coercion
+
+    ```javascript
+    var
+      number = 1,
+      string = '1',
+      bool = false;
+
+    number; // => 1
+
+    '' + number; // => '1'
+
+    !!number; // => true
+
+    string; // => '1'
+
+    +string; // => 1
+    // NOTE: Always prefer #parseInt to + as noted below
+
+    string; // => '1'
+
+    +string++; // => 1
+
+    string; // => 2
+
+    bool; // => false
+
+    +bool; // => 0
+
+    '' + bool; // => 'false'
+
+    ```
 
   - Perform type coercion at the beginning of the statement.
   - Strings:
@@ -1326,11 +1502,11 @@
 
   - **Yup.**
 
-    ```javascript
-    function() {
-      return true;
-    }
-    ```
+**[⬆ back to top](#table-of-contents)**
+
+## Resources
+
+  - TBD
 
 **[⬆ back to top](#table-of-contents)**
 
