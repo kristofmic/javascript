@@ -1,9 +1,10 @@
 # Procur JavaScript Style Guide
 
-###This document was compiled from a variety of sources, which may be referenced in the [Resources](#resources)
+##This document was compiled from a variety of sources, which may be referenced in the [Resources](#resources)
 section
 
 ###All code in any code-base should look like a single person typed it, no matter how many people contributed.###
+###As a general rule of thumb, don't do stupid shit and everything will be ok.###
 
 ## Table of Contents
 
@@ -27,6 +28,7 @@ section
   1. [Constructors](#constructors)
   1. [Events](#events)
   1. [Modules](#modules)
+  1. [Danger Zone](#danger-zone)
   1. [Testing](#testing)
   1. [Resources](#resources)
 
@@ -289,6 +291,25 @@ section
     }
     ```
 
+  - The return value must be on the same line as the return keyword in order to avoid semicolon insertion.
+    ```javascript
+    // bad
+    function foo() {
+      return
+        'bar';
+    }
+
+    foo() // => undefined
+
+    // good
+    function foo() {
+      return 'bar';
+    }
+
+    foo() // => 'bar'
+
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Properties
@@ -417,7 +438,7 @@ section
     ];
     ```
 
-  - Assign variables at the top of their scope. This helps avoid issues with variable declaration and assignment hoisting related issues.
+  - Assign variables at the top of their scope (if you have variables, the `var` statement should be the first statement in the function body). This helps avoid issues with variable declaration and assignment hoisting related issues.
 
     ```javascript
     // bad
@@ -608,6 +629,22 @@ section
     if ([0]) {
       // true
       // An array is an object, objects evaluate to true
+    }
+    ```
+
+  - Avoid doing assignments as part of a conditional.
+
+    ```javascript
+    // bad
+    if (a = b) {
+      // ...stuff...
+    }
+
+    // good
+    a = b;
+
+    if (a) {
+      // ...stuff...
     }
     ```
 
@@ -962,6 +999,69 @@ section
         .call(tron.led);
     ```
 
+  - Insert a carriage return after functions and label statements.
+    ```javascript
+    // bad
+    if (condition) {
+
+    } else {
+
+    }
+
+    try {
+
+    } catch(e) {
+
+    }
+
+    // good
+    if (condition) {
+
+    }
+    else {
+
+    }
+
+    try {
+
+    }
+    catch(e) {
+
+    }
+    ```
+
+  - Indent the `case` statements of a `switch`.
+
+    ```javascript
+    // bad
+    switch (foo) {
+      case 'bar':
+        // ...stuff...
+        break;
+      case 'baz':
+        // ...stuff...
+        break;
+      default:
+        // ...stuff...
+        break;
+    }
+
+    // good
+    if (condition) {
+
+    }
+    else {
+
+    }
+
+    try {
+
+    }
+    catch(e) {
+
+    }
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Commas
@@ -1230,6 +1330,8 @@ section
     ```
 
   - When saving a reference to `this` use `_this`.
+  - **Note:** This is extremely bug prone and should only be done as a last resort. If you find you are having troubles with `this` being set to the wrong context, consider using the `#call`, `#apply` or `#bind` functions, or
+  check the documentation to see if a `thisArg` can be passed into a function call.
 
     ```javascript
     // bad
@@ -1362,7 +1464,17 @@ section
 
     ```javascript
     function Jedi() {
-      console.log('new jedi');
+      this.message = 'new jedi';
+
+      console.log(message);
+
+      return this;
+
+      /**
+      * when creating a constructor to be instatiated via the `new` keyword,
+      * there is an implicit return of `this`, however it is better to be
+      * explicit.
+      */
     }
 
     // bad
@@ -1477,6 +1589,7 @@ section
   - Always declare `'use strict';` at the top of the module.
 
     ```javascript
+    // Node module
     // fancy_input/fancy_input.js
 
     module.exports = FancyInput;
@@ -1494,7 +1607,44 @@ section
       };
 
     }
+
+    // Client-side module
+    (function(global) {
+      'use strict';
+
+      global.FancyModule = FancyModule;
+
+      function FancyModule() {
+        var
+          data = "secret",
+          myArray = [ 1, 2, 3, 4 ];
+
+        return {
+          myArray: myArray,
+          doSomething: doSomething,
+          doSomethingElse: doSomethingElse
+        };
+
+        function doSomething() {
+          // ...stuff...
+        }
+
+        function doSomethingElse() {
+          // ...stuff...
+        }
+      }
+
+    })(this);
     ```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Danger Zone
+
+  - `#eval`. Do not use it. It is insecure, can be difficult to debug, and is slow.
+  - 'with'. No.
+  - 'delete'. Avoid if possible due to performance issues. Often the same objective can be achieved by setting the object property to `null` or `undefined`.
+  - You should not be modifying the `prototype` of built in objects (e.g., `Object.prototype' or 'Array.prototype'). Prefer creating a helper utility instead (e.g., the lo-dash library, which provides convenience methods for working with arrays and objects)
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -1502,11 +1652,21 @@ section
 
   - **Yup.**
 
+  - Resources:
+    + (Jasmine testing framework)[http://jasmine.github.io/2.0/introduction.html]
+    + (Karma test runner)[http://karma-runner.github.io/0.12/index.html]
+    + (Protractor e2e framework and runner)[https://github.com/angular/protractor]
+    + (Istanbul code coverage)[http://gotwarlost.github.io/istanbul/]
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Resources
 
-  - TBD
+  - **Basis for the style guide**
+    + [Idiomatic.js](https://github.com/rwaldron/idiomatic.js/blob/master/readme.md)
+    + [airbnb javascript](https://github.com/airbnb/javascript)
+    + [Crockford's Code Conventions](http://javascript.crockford.com/code.html)
+    + [Google JS Style Guide](https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 
 **[⬆ back to top](#table-of-contents)**
 
