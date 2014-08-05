@@ -1,8 +1,5 @@
 # Procur JavaScript Style Guide
 
-##This document was compiled from a variety of sources, which may be referenced in the [Resources](#resources)
-section
-
 ###All code in any code-base should look like a single person typed it, no matter how many people contributed.###
 ###As a general rule of thumb, don't do stupid shit and everything will be ok.###
 
@@ -97,7 +94,7 @@ section
     };
     ```
 
-  - In instances where a reserved word must be used, for example `catch`, which is often a method on Promise objects, use bracket notation
+  - In instances where a reserved word must be used, for example `catch`, which is often a method on Promise objects, use subscript notation
   - **Note:** this approach must only be followed when the code will run on the browser where IE8 compatability may be a concern
 
     ```javascript
@@ -507,7 +504,7 @@ section
         foo,
         bar;
       if (condition) {
-        bar = ';
+        bar = 'baz';
         // statements
       }
     }
@@ -516,7 +513,7 @@ section
     function foo() {
       let foo;
       if (condition) {
-        let bar = ';
+        let bar = 'baz';
         // statements
       }
     }
@@ -999,7 +996,7 @@ section
         .call(tron.led);
     ```
 
-  - Insert a carriage return after functions and label statements.
+  - Insert a newline after functions and label statements.
     ```javascript
     // bad
     if (condition) {
@@ -1035,6 +1032,19 @@ section
     ```javascript
     // bad
     switch (foo) {
+    case 'bar':
+      // ...stuff...
+      break;
+    case 'baz':
+      // ...stuff...
+      break;
+    default:
+      // ...stuff...
+      break;
+    }
+
+    // good
+    switch (foo) {
       case 'bar':
         // ...stuff...
         break;
@@ -1044,21 +1054,6 @@ section
       default:
         // ...stuff...
         break;
-    }
-
-    // good
-    if (condition) {
-
-    }
-    else {
-
-    }
-
-    try {
-
-    }
-    catch(e) {
-
     }
     ```
 
