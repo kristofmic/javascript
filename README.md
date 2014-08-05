@@ -1642,9 +1642,9 @@ section
 ## Danger Zone
 
   - `#eval`. Do not use it. It is insecure, can be difficult to debug, and is slow.
-  - 'with'. No.
-  - 'delete'. Avoid if possible due to performance issues. Often the same objective can be achieved by setting the object property to `null` or `undefined`.
-  - You should not be modifying the `prototype` of built in objects (e.g., `Object.prototype' or 'Array.prototype'). Prefer creating a helper utility instead (e.g., the lo-dash library, which provides convenience methods for working with arrays and objects)
+  - `with`. No.
+  - `delete`. Avoid if possible due to performance issues. Often the same objective can be achieved by setting the object property to `null` or `undefined`.
+  - You should not be modifying the `prototype` of built in objects (e.g., `Object.prototype` or `Array.prototype`). Prefer creating a helper utility instead (e.g., the lo-dash library, which provides convenience methods for working with arrays and objects)
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -1652,11 +1652,10 @@ section
 
   - **Yup.**
 
-  - Resources:
-    + (Jasmine testing framework)[http://jasmine.github.io/2.0/introduction.html]
-    + (Karma test runner)[http://karma-runner.github.io/0.12/index.html]
-    + (Protractor e2e framework and runner)[https://github.com/angular/protractor]
-    + (Istanbul code coverage)[http://gotwarlost.github.io/istanbul/]
+    + [Jasmine testing framework](http://jasmine.github.io/2.0/introduction.html)
+    + [Karma test runner](http://karma-runner.github.io/0.12/index.html)
+    + [Protractor e2e framework and runner](https://github.com/angular/protractor)
+    + [Istanbul code coverage](http://gotwarlost.github.io/istanbul/)
 
 **[⬆ back to top](#table-of-contents)**
 
