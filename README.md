@@ -89,7 +89,7 @@
     };
     ```
 
-  - In instances where a reserved word must be used, for example `catch`, which is often a method on Promise objects, use bracket notation (NOTE: this approach should only be followed the code will run on the browser where IE8 compatability may be a concern)
+  - In instances where a reserved word must be used, for example `catch`, which is often a method on Promise objects, use bracket notation (NOTE: this approach must only be followed when the code will run on the browser where IE8 compatability may be a concern)
 
     ```javascript
     // bad
@@ -103,6 +103,7 @@
       .then(doSomething)
       .then(doSomethingElse)
       ['catch'](handleError);
+    ```
 
   - Use readable synonyms in place of reserved words.
 
