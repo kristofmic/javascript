@@ -89,7 +89,8 @@
     };
     ```
 
-  - In instances where a reserved word must be used, for example `catch`, which is often a method on Promise objects, use bracket notation (NOTE: this approach must only be followed when the code will run on the browser where IE8 compatability may be a concern)
+  - In instances where a reserved word must be used, for example `catch`, which is often a method on Promise objects, use bracket notation
+  - **Note:** this approach must only be followed when the code will run on the browser where IE8 compatability may be a concern
 
     ```javascript
     // bad
@@ -138,7 +139,7 @@
     var items = [];
     ```
 
-  - If you don't know array length use Array#push.
+  - If you don't know an array's length use Array#push.
 
     ```javascript
     var someStack = [];
@@ -172,7 +173,7 @@
     ```
 
   - Strings longer than 80 characters should be written across multiple lines using string concatenation.
-  - Note: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
+  - **Note:** If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
 
     ```javascript
     // bad
@@ -1153,8 +1154,8 @@
     ```
 
   - Use the ES5 `get` and `set` keywords to define getters and setters in a more intuitive way as
-  if they were properties, though they are in fact functions (NOTE: IE8 and below support is not
-  available for this convention) (for more information see [http://ejohn.org/blog/javascript-getters-and-setters/](http://ejohn.org/blog/javascript-getters-and-setters/))
+  if they were properties, though they are in fact functions
+  - **Note:** IE8 and below support is not available for this convention. For more information see [http://ejohn.org/blog/javascript-getters-and-setters/](http://ejohn.org/blog/javascript-getters-and-setters/)
 
     ```javascript
     function Dragon() {
