@@ -13,6 +13,11 @@
   // Define globals exposed by Node.js.
   "node": true,
 
+  // Define other globals
+  "globals": {
+    "angular": false
+  },
+
   /*
    * ENFORCING OPTIONS
    * =================
@@ -32,7 +37,7 @@
   "indent": 2,
 
   // Prohibit use of a variable before it is defined.
-  "latedef": true,
+  "latedef": "nofunc,
 
   // Require capitalized names for constructor functions.
   "newcap": true,
@@ -53,5 +58,5 @@
   "maxlen": 80,
 
   // Enforce placing 'use strict' at the top function scope
-  "strict": true
+  "strict": false
 }
