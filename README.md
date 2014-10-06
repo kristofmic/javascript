@@ -1,4 +1,4 @@
-# Procur JavaScript Style Guide
+# JavaScript Style Guide
 
 ###All code in any code-base should look like a single person typed it, no matter how many people contributed.###
 ###As a general rule of thumb, don't do stupid shit and everything will be ok.###
