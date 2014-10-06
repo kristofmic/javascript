@@ -37,7 +37,7 @@
   "indent": 2,
 
   // Prohibit use of a variable before it is defined.
-  "latedef": "nofunc,
+  "latedef": "nofunc",
 
   // Require capitalized names for constructor functions.
   "newcap": true,
