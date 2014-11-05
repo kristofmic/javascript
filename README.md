@@ -1593,7 +1593,6 @@
 ## Modules
 
   - The file should be named with snake case and match the name of the single export written in camel case.
-  - Always declare `'use strict';` at the top of the module.
 
     ```javascript
     // Node module
@@ -1602,7 +1601,6 @@
     module.exports = FancyInput;
 
     function FancyInput() {
-      'use strict';
 
       function doSomethingFancy(options) {
         options = options || {};
@@ -1617,7 +1615,6 @@
 
     // Client-side module
     (function(global) {
-      'use strict';
 
       global.FancyModule = FancyModule;
 

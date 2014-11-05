@@ -15,7 +15,15 @@
 
   // Define other globals
   "globals": {
-    "angular": false
+    "angular": false,
+    "describe": false,
+    "it": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "expect": false,
+    "browser": false,
+    "inject": false,
+    "sinon": false
   },
 
   /*
@@ -25,7 +33,7 @@
 
   // Force all variable names to use either camelCase style or UPPER_CASE
   // with underscores.
-  "camelcase": true,
+  "camelcase": false,
 
   // Prohibit use of == and != in favor of === and !==.
   "eqeqeq": true,
@@ -55,8 +63,5 @@
   "unused": true,
 
   // Enforce line length to 80 characters
-  "maxlen": 80,
-
-  // Enforce placing 'use strict' at the top function scope
-  "strict": false
+  "maxlen": 80
 }
