@@ -15,7 +15,15 @@
 
   // Define other globals
   "globals": {
-    "angular": false
+    "angular": false,
+    "describe": false,
+    "it": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "expect": false,
+    "browser": false,
+    "inject": false,
+    "sinon": false
   },
 
   /*
@@ -55,8 +63,5 @@
   "unused": true,
 
   // Enforce line length to 80 characters
-  "maxlen": 80,
-
-  // Enforce placing 'use strict' at the top function scope
-  "strict": false
+  "maxlen": 80
 }
